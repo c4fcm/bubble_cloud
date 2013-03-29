@@ -1,4 +1,4 @@
-var Bubbles, root, texts;
+var Bubbles, root;
 
 root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
@@ -26,7 +26,7 @@ Bubbles = function() {
   textValue = function(d) {
     return d.name;
   };
-  collisionPadding = 4;
+  collisionPadding = 8;
   minCollisionRadius = 12;
   jitter = 0.5;
   transformData = function(rawData) {
@@ -226,53 +226,16 @@ root.plotData = function(selector, data, plot) {
   return d3.select(selector).datum(data).call(plot);
 };
 
-texts = [
-  {
-    key: "sherlock",
-    file: "try_bubbles_data.csv",
-    name: "The Adventures of Sherlock Holmes"
-  }, {
-    key: "obits",
-    file: "try_bubbles_data.csv",
-    name: "New York Times Obituaries"
-  }, {
-    key: "aesop",
-    file: "top_aesop.csv",
-    name: "Aesop's Fables"
-  }, {
-    key: "alice",
-    file: "alice.csv",
-    name: "Alice's Adventures in Wonderland"
-  }, {
-    key: "gulliver",
-    file: "top_gulliver.csv",
-    name: "Gulliver's Travels"
-  }
-];
-
 $(function() {
-  var display, key, plot, text;
+  var display, key, plot;
   plot = Bubbles();
   display = function(data) {
     return plotData("#vis", data, plot);
   };
   key = decodeURIComponent(location.search).replace("?", "");
-  text = texts.filter(function(t) {
-    return t.key === key;
-  })[0];
-  if (!text) {
-    text = texts[0];
-  }
-  $("#text-select").val(key);
-  d3.select("#jitter").on("input", function() {
-    return plot.jitter(parseFloat(this.output.value));
-  });
-  d3.select("#text-select").on("change", function(e) {
-    key = $(this).val();
-    location.replace("#");
-    return location.search = encodeURIComponent(key);
-  });
-  d3.select("#book-title").html(text.name);
-  return d3.csv("data/" + text.file, display);
+
+  plot.jitter(0.25);
+
+  return d3.csv("data/" + "try_bubbles_data.csv", display);
 });
 
