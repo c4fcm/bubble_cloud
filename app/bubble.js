@@ -145,7 +145,7 @@ Bubbles = function() {
       return d.total_male + " /  " + d.total_fem;
     });
     label.style("font-size", function(d) {
-      return Math.max(4, rScale(rValue(d) / 2)) + "px";
+      return Math.max(8, rScale(rValue(d) / 2)) + "px";
     }).style("width", function(d) {
       return 2.5 * rScale(rValue(d)) + "px";
     });
