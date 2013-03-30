@@ -24,6 +24,41 @@ header {
   text-align: center;
 }
 
+#intro{
+  position:absolute;
+  z-index:100;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background:#333;
+  color:white;
+}
+
+#intro .content{
+  position:absolute;
+  top:30%;
+  left:50%;
+  height:200px;
+  width: 400px;
+  z-index:200;
+  opacity:1.0;
+  color:#eee;
+}
+
+#intro .next{
+  position:absolute;
+  color:white;
+  right:-50px;
+  font-size:32px;
+  cursor:pointer;
+}
+
+#intro .content .innercontent{
+  position:relative;
+  left:-50%;
+}
+
 #text-select {
   float:right;
   margin-right: 10px;

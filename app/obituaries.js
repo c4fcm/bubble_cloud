@@ -19,7 +19,6 @@ var ObituaryView = Backbone.View.extend({
       that.render();
     });
   }
-  
 });
 
 var ObituaryRouter = Backbone.Router.extend({
@@ -29,11 +28,19 @@ var ObituaryRouter = Backbone.Router.extend({
   },
 
   index: function(){
-    obituary_view.render()
+    if(this.check_slideshow()){
+      obituary_view.render()
+    }
   },
   
   wordview: function(word){
-    obituary_view.load(word);
+    if(this.check_slideshow()){
+      obituary_view.load(word);
+    }
+  },
+
+  check_slideshow: function(){
+    return true; 
   }
 });
 

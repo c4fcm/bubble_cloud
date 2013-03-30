@@ -25,6 +25,7 @@
 <body>
 
   <div id="container" class="container">
+    <div id="intro"></div>
     <header>
     <h1>New York Times Obituaries, 1987 - 2007</h1>
     </header>
@@ -36,15 +37,29 @@
   <div id="obituaries">
   </div>
 
+  <!-- Templates -->
+  <script type="text/template" id="slide_template">
+    <div class="content">
+    <div class="innercontent">
+      <h2 class="title"><%=title%></h2>
+      <div class="text"><%=text%></div>
+      <div class="next"><a class="next">next</a></div>
+    </div>
+    </div>
+  </script>
+  <!-- End Templates -->
+
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
 
   <script defer src="js/plugins.js"></script>
+  <script defer src="js/libs/jquery-cookie.js"></script>
   <script src="js/libs/d3.v2.js"></script>
   <script type="text/javascript" src="app/bubble.js"></script>
   <script type="text/javascript" src="js/libs/underscore-min.1.4.4.js"></script>
   <script type="text/javascript" src="js/libs/backbone-min-1.0.0.js"></script>
   <script type="text/javascript" src="app/obituaries.js"></script>
+  <script type="text/javascript" src="app/intro.js"></script>
 
 </body>
 </html>
