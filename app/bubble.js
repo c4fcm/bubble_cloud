@@ -97,10 +97,20 @@ Bubbles = function() {
       return rScale(rValue(d));
     });
 
-    newnode.append("svg:path").attr("d", function(d){
-      r = rScale(rValue(d));
-      return "M0 " + r + " A" +r+ " " +r+ " 0 1 0 0 -" + r + " Z"
-    });
+    newnode.append("svg:clipPath").attr("id", function(d){return "clip_"+textValue(d).replace(" ", "_")})
+      .append("svg:rect")
+        .attr("x", function(d){return -rScale(rValue(d))})
+        .attr("y", function(d){return -rScale(rValue(d))})
+        .attr("width", function(d){
+          //instead of percentages, Math.random()
+          return Math.random() * (2 * rScale(rValue(d)));
+        })
+        .attr("height", function(d){return 2 * rScale(rValue(d))});
+
+    newnode.append("svg:circle").attr("class", "mask").attr("r", function(d){
+      return rScale(rValue(d));
+    }).attr("clip-path", function(d){return "url(#clip_"+textValue(d).replace(" ","_")+")"});
+
   };
   updateLabels = function() {
     var labelEnter;

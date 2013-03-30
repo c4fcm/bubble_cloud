@@ -55,7 +55,7 @@ header {
   fill: #fc0;
 }
 
-.bubble-node path{
+.bubble-node .mask{
   fill:#0c6;
 }
 
@@ -64,7 +64,7 @@ header {
   fill: #fd9;
 }
 
-.bubble-hover path{
+.bubble-hover .mask{
   fill: #4eb;
 }
 
@@ -76,7 +76,7 @@ header {
   stroke-width: 1.5px;
 }
 
-.bubble-selected path{
+.bubble-selected .mask{
   fill: #dfd;
 }
 
