@@ -52,32 +52,32 @@ header {
 
 .bubble-node {
   /* fill: #d1e0f3; */
-  fill: #fc0;
+  fill: #f99;
 }
 
 .bubble-node .mask{
-  fill:#0c6;
+  fill:#6af;
 }
 
 .bubble-hover {
   /* fill: #b8c7d9; */
-  fill: #fd9;
+  fill: #fcc;
 }
 
 .bubble-hover .mask{
-  fill: #4eb;
+  fill: #9cf;
 }
 
 .bubble-selected {
   /* fill: #a8c8ee;  */
-  fill: #fed;
+  fill: #f66;
   /* stroke: #6081a3; */
   stroke: #A6BA92;
   stroke-width: 1.5px;
 }
 
 .bubble-selected .mask{
-  fill: #dfd;
+  fill: #48f;
 }
 
 .active {

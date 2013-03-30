@@ -26,7 +26,7 @@ Bubbles = function() {
   textValue = function(d) {
     return d.name;
   };
-  collisionPadding = 8;
+  collisionPadding = 10;
   minCollisionRadius = 12;
   jitter = 0.5;
   transformData = function(rawData) {
@@ -97,13 +97,30 @@ Bubbles = function() {
       return rScale(rValue(d));
     });
 
-    newnode.append("svg:clipPath").attr("id", function(d){return "clip_"+textValue(d).replace(" ", "_")})
+    newnode.append("svg:clipPath").attr("id", function(d){
+      return "clip_"+textValue(d).replace(" ", "_")
+    })
       .append("svg:rect")
         .attr("x", function(d){return -rScale(rValue(d))})
         .attr("y", function(d){return -rScale(rValue(d))})
         .attr("width", function(d){
-          //instead of percentages, Math.random()
-          return Math.random() * (2 * rScale(rValue(d)));
+
+          // code adapted from http://bl.ocks.org/mbostock/3422480
+
+          k = d.total_male/d.count;
+          var t0, t1 = k * 2 * Math.PI;
+          // Solve for theta numerically.
+          if (k > 0 && k < 1) {
+            t1 = Math.pow(12 * k * Math.PI, 1 / 3);
+            for (var i = 0; i < 10; ++i) {
+              t0 = t1;
+              t1 = (Math.sin(t0) - t0 * Math.cos(t0) + 2 * k * Math.PI) / (1 - Math.cos(t0));
+            }
+            k = (1 - Math.cos(t1 / 2)) / 2;
+          }
+          h = k; //2 * rScale(rValue(d)) * k;
+          return h * (2 * rScale(rValue(d)));
+          //return parseFloat(d.male)/(parseFloat(d.fem)+parseFloat(d.male)) * (2 * rScale(rValue(d)));
         })
         .attr("height", function(d){return 2 * rScale(rValue(d))});
 
@@ -125,10 +142,10 @@ Bubbles = function() {
       return textValue(d);
     });
     labelEnter.append("div").attr("class", "bubble-label-value").text(function(d) {
-      return rValue(d);
+      return d.total_male + " /  " + d.total_fem;
     });
     label.style("font-size", function(d) {
-      return Math.max(8, rScale(rValue(d) / 2)) + "px";
+      return Math.max(4, rScale(rValue(d) / 2)) + "px";
     }).style("width", function(d) {
       return 2.5 * rScale(rValue(d)) + "px";
     });
@@ -258,6 +275,6 @@ $(function() {
 
   plot.jitter(0.25);
 
-  return d3.csv("data/" + "try_bubbles_data.csv", display);
+  return d3.csv("data/" + "obit_data.csv", display);
 });
 
