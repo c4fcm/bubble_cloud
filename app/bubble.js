@@ -38,7 +38,11 @@ Bubbles = function() {
     });
     return rawData;
   };
+
   tick = function(e) {
+    if(node == null){
+      return ""; 
+    }
     var dampenedAlpha;
     dampenedAlpha = e.alpha * 0.1;
     node.each(gravity(dampenedAlpha)).each(collide(jitter)).attr("transform", function(d) {
@@ -84,10 +88,18 @@ Bubbles = function() {
       return idValue(d);
     });
     node.exit().remove();
-    return node.enter().append("a").attr("class", "bubble-node").attr("xlink:href", function(d) {
+
+    newnode = node.enter().append("a").attr("class", "bubble-node").attr("xlink:href", function(d) {
       return "#" + (encodeURIComponent(idValue(d)));
-    }).call(force.drag).call(connectEvents).append("circle").attr("r", function(d) {
+    }).call(force.drag).call(connectEvents)
+
+    newnode.append("circle").attr("r", function(d) {
       return rScale(rValue(d));
+    });
+
+    newnode.append("svg:path").attr("d", function(d){
+      r = rScale(rValue(d));
+      return "M0 " + r + " A" +r+ " " +r+ " 0 1 0 0 -" + r + " Z"
     });
   };
   updateLabels = function() {
