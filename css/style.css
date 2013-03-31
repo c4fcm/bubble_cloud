@@ -150,3 +150,23 @@ footer p {
   font: 13px sans-serif;
 }
 
+.namediv_female {
+  color: #ff0000;
+  width: 200px;
+  float: left;
+  position: relative;
+  border: 1px solid #ff0000;
+  padding: 5px;
+  margin: 5px;
+}
+
+.namediv_male {
+  color: #008888;
+  width: 200px;
+  float: left;
+  position: relative;
+  border: 1px solid #008888;
+  padding: 5px;
+  margin: 5px;
+}
+
