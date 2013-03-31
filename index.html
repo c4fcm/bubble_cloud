@@ -38,6 +38,26 @@
   </div>
 
   <!-- Templates -->
+  <script id="tmpl-obit-sentences" type="text/template">
+    <% // data is word.json and bubblecloud_data.json %>
+    <div id="rates_graph">
+	Rates graph goes here.
+    </div>
+    <div id="sentence-intro">
+	Intro for sentences.
+    </div>
+
+    <% // A div for each name, showing the name. %>
+    <% for (var i=0; i < names.length; i++) { %>
+	    <% var name = names[i]; %>
+	    <div id=<%= i %> class=<%= "namediv_"+ name.gender %> gender=<%= name.gender%> >
+		    <%= name.name %>, <%= name.date %>, <%= name.gender %>
+	    </div>
+    <% }; %>
+
+    </div>
+  </script>
+
   <script type="text/template" id="slide_template">
     <div class="content">
     <div class="innercontent">

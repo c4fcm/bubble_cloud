@@ -9,7 +9,8 @@ var ObituaryView = Backbone.View.extend({
   },
 
   render: function(){
-    $(this.el).html("Number of sentences: " + this.data.length);
+    var compiledTmpl = _.template($('#tmpl-obit-sentences').html());
+    $(this.el).html(compiledTmpl({names: this.data}));
   },
 
   load: function(word){
