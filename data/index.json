@@ -1,6 +1,14 @@
 [
-{"title":"",
- "text":"How does the language that the U.S. media uses to talk about society's heroes, leaders, and visionaries vary by gender?"},
-{"title":"",
- "text":"How much wood would a woodchuck chuck if a woodchuck could chuck wood?"}
+{"first":"Who are your heroes?",
+ "second":"people whose lives have inspired your imagination",
+ "third":"with visions of who you could be?"},
+{"first":"Where did you discover your hero?",
+ "second":"From the news? An encyclopedia? A friend?",
+ "third":"The heroes we share are the heroes we have."},
+{"first":"Among lives celebrated by mainstream media",
+ "second":"women are a small minority",
+ "third":"a fact that limits everyone's belief in what's possible"},
+{"first":"Explore NYTimes obituaries",
+ "second":"Share lives that fascinate you",
+ "third":"Speak up about your own heroes"}
 ]

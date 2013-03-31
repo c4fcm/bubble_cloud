@@ -31,8 +31,9 @@ header {
   left:0px;
   right:0px;
   bottom:0px;
-  background:#333;
-  color:white;
+  background:#eee;
+  color:black;
+  opacity:1;
 }
 
 #intro .content{
@@ -43,20 +44,26 @@ header {
   width: 400px;
   z-index:200;
   opacity:1.0;
-  color:#eee;
+  color:#333;
 }
 
 #intro .next{
   position:absolute;
-  color:white;
+  font-size:20px;
+  color:#999;
   right:-50px;
-  font-size:32px;
+  top:50%;
   cursor:pointer;
+}
+
+#intro .next:hover{
+  color:#666;
 }
 
 #intro .content .innercontent{
   position:relative;
   left:-50%;
+  height:200px;
 }
 
 #text-select {
@@ -107,7 +114,7 @@ header {
   /* fill: #a8c8ee;  */
   fill: #f66;
   /* stroke: #6081a3; */
-  stroke: #A6BA92;
+  stroke: #eee;
   stroke-width: 1.5px;
 }
 
