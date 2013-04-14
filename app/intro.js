@@ -11,6 +11,8 @@ var IntroView = Backbone.View.extend({
   },
  
   load_slides: function(){
+    $("#intro").remove();
+    return true;
     that = this;
     $.getJSON("data/index.json", function(data){
       that.slides = data;
@@ -21,6 +23,8 @@ var IntroView = Backbone.View.extend({
   },
 
   play_slide: function(n){
+    // temporary shim
+
     that = this;
     $("#intro .first").html("");
     $("#intro .second").html("");

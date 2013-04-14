@@ -34,42 +34,50 @@
       <div id="status"></div>
     </div>
   </div> <!--! end of #container -->
-  <div id="obituaries">
+  <div id="obituaries" class="container">
+  </div>
+
+  <div id="person_view" class="container">
   </div>
 
   <!-- Templates -->
-  <script id="tmpl-obit-sentences" type="text/template">
-    <% // data is word.json and bubblecloud_data.json %>
-    <div id="rates_graph">
-	Rates graph goes here.
-    </div>
-    <div id="sentence-intro">
-	Intro for sentences.
-    </div>
 
-    <% // A div for each name, showing the name. %>
-    <% for (var i=0; i < names.length; i++) { %>
-	    <% var name = names[i]; %>
-	    <div id=<%= i %> class=<%= "namediv_"+ name.gender %> gender=<%= name.gender%> >
-		    <%= name.name %>, <%= name.date %>, <%= name.gender %>
-	    </div>
-    <% }; %>
-
-    </div>
-  </script>
-
+  <!-- Slide Page -->
   <script type="text/template" id="slide_template">
     <div class="content">
-    <div class="innercontent">
-      <div class="next"><a class="next">[next]</a></div>
-      <h2 class="first"></h2>
-      <br/>
-      <h2 class="second"></h2>
-      <br/>
-      <h2 class="third"></h2>
-    </div>
+      <div class="innercontent">
+        <div class="next"><a class="next">[next]</a></div>
+        <h2 class="first"></h2>
+        <br/>
+        <h2 class="second"></h2>
+        <br/>
+        <h2 class="third"></h2>
+      </div>
     </div>
   </script>
+
+  <!-- Individual Obituary Block-->
+  <script id="obit_name" type="text/template"><div class="obit_entry" id="obit_<%=name.id%>" data-obit-id="<%=name.id%>"><span class="block <%=name.g%>"></span><!-- <span class="name"><%=name.name%></span> <span class="date"><%=name.date%></span>--></div></script>
+
+  <!-- Individual Obituary Record -->
+  <script id="obit_record" type="text/template">
+    <div class="obit_info">
+      <div class="name"><a href="#person/<%=obit.id%>"><%=obit.name%></a></div>
+      <div class="date"><%=obit.date%></div>
+      <% _.each(obit.sentences, function(sentence){ %>
+        <div class="sentence"><%=sentence%></div>
+      <% }); %>
+    </div>
+  </script>
+
+  <!-- Obituary Area -->
+  <script id="person_page_template" type="text/template">
+    <div class="person_page">
+      <iframe class="wikipedia" src="http://en.mobile.wikipedia.org/w/index.php?title=Special%3ASearch&search=<%=person.name%>">
+      </iframe>
+    </div>
+  </script>
+
   <!-- End Templates -->
 
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
@@ -77,6 +85,7 @@
 
   <script defer src="js/plugins.js"></script>
   <script defer src="js/libs/jquery-cookie.js"></script>
+  <script defer src="js/libs/crossfilter.min.js"></script>
   <script src="js/libs/d3.v2.js"></script>
   <script type="text/javascript" src="app/bubble.js"></script>
   <script type="text/javascript" src="js/libs/underscore-min.1.4.4.js"></script>
