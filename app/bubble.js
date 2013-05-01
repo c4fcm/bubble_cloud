@@ -265,16 +265,27 @@ root.plotData = function(selector, data, plot) {
   return d3.select(selector).datum(data).call(plot);
 };
 
-$(function() {
-  var display, key, plot;
-  plot = Bubbles();
-  display = function(data) {
-    return plotData("#vis", data, plot);
-  };
-  key = decodeURIComponent(location.search).replace("?", "");
+var BubbleView = Backbone.View.extend({
+  el:"#vis",
+  events:{
+  },
 
-  plot.jitter(0.25);
+  initialize: function(){
+    var display, key, plot;
+    plot = Bubbles();
+    this.display = function(data) {
+      return plotData("#vis", data, plot);
+    };
+    key = decodeURIComponent(location.search).replace("?", "");
 
-  return d3.csv("data/" + "obit_data.csv", display);
+    plot.jitter(0.25);
+
+  },
+  
+  render: function(){
+    return d3.csv("data/" + "obit_data.csv", this.display);
+  }
+  
 });
 
+bubble_view = new BubbleView();

@@ -82,9 +82,8 @@ var PersonView = Backbone.View.extend({
 
   showperson: function(person){
     $(this.el).html("");
-    obituary_view.hide();
+    //http://en.wikipedia.org/wiki/Special:Search?search=sandra+dee
     $("#person_view").html(this.person_page_template({person:obituary_view.current_obituary}));
-//http://en.wikipedia.org/wiki/Special:Search?search=sandra+dee
   }
 });
 

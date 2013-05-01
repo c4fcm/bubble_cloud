@@ -7,12 +7,13 @@ var IntroView = Backbone.View.extend({
   initialize: function(){
     this.slide_template= _.template($("#slide_template").html());
     $(this.el).html(this.slide_template());
+    this.timeouts = []
     this.load_slides();
   },
  
   load_slides: function(){
-    $("#intro").remove();
-    return true;
+//   $("#intro").remove();
+//    return true;
     that = this;
     $.getJSON("data/index.json", function(data){
       that.slides = data;
@@ -24,23 +25,22 @@ var IntroView = Backbone.View.extend({
 
   play_slide: function(n){
     // temporary shim
+    _.each(this.timeouts, function(t){
+      window.clearInterval(t);
+    });
 
     that = this;
     $("#intro .first").html("");
     $("#intro .second").html("");
     $("#intro .third").html("");
 
-    this.text_fade(this.slides[n].first, "first");
-    setTimeout(function(){that.text_fade(that.slides[n].second, "second");}, 1500);
-    setTimeout(function(){that.text_fade(that.slides[n].third, "third");}, 4000);
-/*    var spans= '<span style="opacity:0">' + 
-      this.slides[n].first.split('')
-      .join('</span><span style="opacity:0">') + '</span>';
-    $(spans).appendTo("#intro .first");
-
-    d3.selectAll("#intro .first span").transition()
-      .delay(function(d, i){return i*30;})
-      .duration(320).style("opacity", 1);*/
+    first = this.slides[n].first
+    second = that.slides[n].second
+    third = that.slides[n].third
+    
+    this.text_fade(first, "first");
+    this.timeouts.push(setTimeout(function(){that.text_fade(second, "second");}, first.length*30 + 420));
+    this.timeouts.push(setTimeout(function(){that.text_fade(third, "third");},  (first.length + second.length) * 30 + 840));
   },
 
   text_fade: function(text, name){
@@ -61,9 +61,10 @@ var IntroView = Backbone.View.extend({
     if(this.current_slide < this.total_slides){
       this.play_slide(this.current_slide);
     }
-    if(this.current_slide > this.total_slides){
+    if(this.current_slide >= this.total_slides){
       d3.select(this.el).transition().duration(800).style("opacity",0).remove();
       //$(this.el).remove();
+      bubble_view.render();
       this.unbind();
     }
   },
