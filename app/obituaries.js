@@ -1,14 +1,14 @@
 var ObituaryView = Backbone.View.extend({
   el: "#obituaries",
   events:{
-   "click .obit_entry":"showObituary"
    // handle events
   },
 
   initialize: function(){
     this.data = [];
-    this.obit_name_template = _.template($("#obit_name").html())
-    this.obit_record_template = _.template($("#obit_record").html())
+    this.obit_name_template = _.template($("#obit_name_template").html())
+    this.person_sidebar_template = _.template($("#person_sidebar_template").html())
+    this.prev_tooltip = null;
   },
 
   render: function(){
@@ -28,37 +28,19 @@ var ObituaryView = Backbone.View.extend({
     that = this;
     this.names_by_gender.filter("f");
     $("#obituaries").html("");
-
+    person_index = 0;
     _.each(this.names_by_date.top(Infinity), function(name){
-      $("#obituaries").append(that.obit_name_template({name:name}));
+      $("#obituaries").append(that.obit_name_template({name:name, word:router.current_word, person_index:person_index}));
+      person_index += 1;
     });
     //$("#obituaries").replaceWith(obit_container);
   },
 
-  showObituary: function(e){
-    that = this;
-    outer_div = $(e.target);
-    obit_id = outer_div.attr("data-obit-id");
-    // reset current item
-
-    if(_.isUndefined(obit_id)){
-      outer_div = $(e.target).parent(".obit_entry");
-      obit_id = outer_div.attr("data-obit-id");
-    }
-
- 
-    $.getJSON("data/obits/" + this.word + "/" + obit_id + ".json", function(data){
-      $("#obituaries .selected .obit_info").html("");
-      $("#obituaries .obit_entry").show();
-      outer_div.find(".obit_entry").hide();
-      outer_div.addClass("selected");
-      that.current_obituary = data;
-      outer_div.html(that.obit_record_template({obit:data}));
-    });
-  },
-
   load: function(word){
     obj = this;
+    if(this.word == word){
+      return 
+    }
     this.word = word;
     this.show();
     $.getJSON("data/obit_json/" + word + ".json", function(data){
@@ -67,6 +49,7 @@ var ObituaryView = Backbone.View.extend({
       obj.names_by_gender = obj.data.dimension(function(d){return d.g});
       obj.names_by_date = obj.data.dimension(function(d){return new Date(d.date)});
       obj.showNames();
+      $("#word_selection_heading").html("women's obituaries that include " + word + " terms")
     });
   }
 });
@@ -74,27 +57,55 @@ var ObituaryView = Backbone.View.extend({
 var PersonView = Backbone.View.extend({
   el: "#person_view",
   events:{
+    "click .modal .close": "close_modal",
+    "click .wiki_research_action": 'does_wikipedia_include',
+    "click .research_action": "does_publication_include"
   },
 
   initialize: function(){
     this.person_page_template = _.template($("#person_page_template").html());
+    this.does_wikipedia_include_template = _.template($("#does_wikipedia_include").html());
+    this.does_publication_include_template = _.template($("#does_publication_include").html());
   },
 
-  showperson: function(person){
+  close_modal: function(){
+    $(".modal").remove();
+  },
+
+  does_wikipedia_include: function(){
+    $(".modal").remove();
+    $(this.el).append(this.does_wikipedia_include_template({title:"Now that you've checked Wikipedia", person:this.current_obituary}));
+    $(".modal").fadeIn();
+  },
+
+  does_publication_include: function(e){
+    $(".modal").remove();
+    publication = $(e.target).attr("data-publication");
+    $(this.el).append(this.does_publication_include_template({publication: publication, person:this.current_obituary}));
+    $(".modal").fadeIn();
+  },
+
+  showperson: function(person, word){
     $(this.el).html("");
-    //http://en.wikipedia.org/wiki/Special:Search?search=sandra+dee
-    $("#person_view").html(this.person_page_template({person:obituary_view.current_obituary}));
+    var that = this;
+
+    $.getJSON("data/obits/" + word + "/" + person + ".json", function(person){
+      $("#person_view").html(that.person_page_template({person:person, word: word}));
+      that.current_obituary = person;
+      $.scrollTo("#person_entry")
+    });
   }
 });
 
 var ObituaryRouter = Backbone.Router.extend({
   routes:{
     "": "index",
-    "person/:id":"personview",
+    ":word/:id":"personview",
     ":word": "wordview"
   },
 
   index: function(){
+    this.current_word = "";
     if(this.check_slideshow()){
       obituary_view.render()
     }
@@ -103,11 +114,13 @@ var ObituaryRouter = Backbone.Router.extend({
   wordview: function(word){
     if(this.check_slideshow()){
       obituary_view.load(word);
+      this.current_word = word;
     }
   },
 
-  personview: function(person){
-    person_view.showperson(person);
+  personview: function(word, person){
+    person_view.showperson(person, word);
+    this.wordview(word);
   },
 
   check_slideshow: function(){

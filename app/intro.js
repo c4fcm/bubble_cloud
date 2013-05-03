@@ -12,8 +12,11 @@ var IntroView = Backbone.View.extend({
   },
  
   load_slides: function(){
-//   $("#intro").remove();
-//    return true;
+   // shortcut shim to prevent slides from showing
+   $("#intro").remove();
+   bubble_view.render();
+    return true;
+
     that = this;
     $.getJSON("data/index.json", function(data){
       that.slides = data;

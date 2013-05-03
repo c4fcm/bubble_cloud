@@ -208,18 +208,18 @@ Bubbles = function() {
   };
   hashchange = function() {
     var id;
-    id = decodeURIComponent(location.hash.substring(1)).trim();
+    id = decodeURIComponent(location.hash.substring(1).replace(/\/.*/,"")).trim();
     return updateActive(id);
   };
   updateActive = function(id) {
     node.classed("bubble-selected", function(d) {
       return id === idValue(d);
     });
-    if (id.length > 0) {
+    /*if (id.length > 0) {
       return d3.select("#status").html("<h3>The word <span class=\"active\">" + id + "</span> is now active</h3>");
     } else {
       return d3.select("#status").html("<h3>No word is active</h3>");
-    }
+    }*/
   };
   mouseover = function(d) {
     return node.classed("bubble-hover", function(p) {
@@ -276,10 +276,7 @@ var BubbleView = Backbone.View.extend({
     this.display = function(data) {
       return plotData("#vis", data, plot);
     };
-    key = decodeURIComponent(location.search).replace("?", "");
-
     plot.jitter(0.25);
-
   },
   
   render: function(){
