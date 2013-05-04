@@ -27,7 +27,7 @@
   <div id="container" class="container">
     <div id="intro"></div>
     <header>
-    <h1>New York Times Obituaries, 1987 - 2007</h1>
+    <h1>New York Times Life Records 1987 - 2007</h1>
     </header>
     <div id="main" role="main">
       <div id="vis"></div>
@@ -106,14 +106,36 @@
       <p><%=sentence%></p>
     <% }); %>
     <p><a target="_new" class="full_obituary" href="<%=person.url%>"><img src="https://www.nytimes.com/favicon.ico"/>Read the full obituary of <%=person.name%>.</a> </p>
-    <h4>Actions</h4>
+    <p><a class="wiki_research_action" href="https://en.wikipedia.org/wiki/Special:Search?search=<%=person.name%>&go=Go" target="_new"><img src="http://wikipedia.com/favicon.ico" align="bottom"/>Search Wikipedia for <em><%=person.name%></em></a></p>
+
+    <h4>Learn more &amp; find other sources for Wikipedia</h4>
     <ul >
-      <li><a class="wiki_research_action" href="https://en.wikipedia.org/wiki/Special:Search?search=<%=person.name%>&go=Go" target="_new"><img src="http://wikipedia.com/favicon.ico" align="bottom"/>Search Wikipedia for <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="the New York Times" target="_new" href="http://query.nytimes.com/search/sitesearch/#/<%=person.name.replace(' ','+')%>"><img src="https://www.nytimes.com/favicon.ico"/>Search the New York Times for  <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="the Boston Globe" target="_new" href="https://secure.pqarchiver.com/boston/results.html?st=advanced&QryTxt=<%=person.name.replace(' ','+')%>&type=current&sortby=RELEVANCE&datetype=0&frommonth=01&fromday=01&fromyear=1980&tomonth=05&today=03&toyear=2013&By=&Title="><img width="16" height="16" src="http://www.boston.com/favicon.ico"/>Search the Boston Globe for <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="Britannica" target="_new" href="http://www.britannica.com/search?query=<%=encodeURIComponent(person.name)%>"><img width="16" height="16" src="http://www.britannica.com/favicon.ico"/>Search Britanicca for <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="Google Books" target="new" href="http://google.com/search?q=<%=person.name.replace(' ','+')%>&btnG=Search+Books&tbm=bks&tbo=1"><img src="https://www.google.com/favicon.ico">Search Google Books for <em><%=person.name%></em></li>
     </ul>
+    </div>
+  </script>
+
+  <script id="share_life_record_template" type="text/template">
+    <div class="modal" style="display:none">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Share A Story</h3>
+        </div>
+        <div class="modal-body">
+          <p>Has the story of <em><%=person.name%></em> inspired you? Share this story on Facebook and Twitter.</p> <p>Maybe this life record inspires you to tell some other story. Why not write a short note online to remember your heroes?</p>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://url" data-text="THING THING" data-via="ACCOUNT" data-size="large" data-dnt="true">Tweet</a>
+          <br/><br/>
+         
+          <div id="like_person" class="fb-like" data-send="true" data-width="450" data-show-faces="false" data-font="lucida grande" data-action="recommend" style="height:160px;"></div>
+        </div>
+
+        <div class="modal-footer">
+          <a class="btn btn-primary close">Close</a>
+        </div>
+      </div>
     </div>
   </script>
 
@@ -126,7 +148,7 @@
         <div class="modal-body">
           <form name="final_survey" action="/followbias/final_survey" method="post" id="final_survey">
           <fieldset>
-            <span class="help-block">Does Wikipedia include <%=person.name%>? Remember, people are sometimes given space within a topic rather than their own page.</span>
+            <span class="help-block">Does Wikipedia include <%=person.name%>? Remember, people are sometimes described within a topic rather than a biography. You may have to search again.</span>
             <label class="radio inline">
               <input type="radio" name="includes_person" value="Y"> Yes
             </label>
@@ -134,7 +156,16 @@
               <input type="radio" name="includes_person" value="N"> No
             </label>
             <hr/>
-            <span class="help-block">Can this article be improved?</span>
+            <span class="help-block">This one might take a minute: If <em><%=person.name%></em> does not appear in Wikipedia, do you think this person would meet <strong>at least one</strong> of Wikipedia's <strong><a href="https://en.wikipedia.org/wiki/Wikipedia:Article_wizard/Biographical_notability">notable person requirements</a></strong>?</span>
+            <label class="radio inline">
+              <input type="radio" name="notable" value="Y"> Yes
+            </label>
+            <label class="radio inline">
+              <input type="radio" name="notable" value="N"> No
+            </label>
+            
+            <hr/>
+            <span class="help-block">If <%=person.name%> does appear in Wikipedia, is the article so thin or weak that it clearly needs more detail or editing?</span>
             <label class="radio inline">
               <input type="radio" name="needs_improvement" value="Y"> Yes 
             </label>
@@ -145,8 +176,9 @@
           </form>
         </div>
         <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" value="Save Report"/>
-    </div>
+          <input type="submit" class="btn btn-primary" value="Save Report"/>
+        </div>
+      </div>
     </div>
     
   </script>
@@ -176,8 +208,9 @@
           </form>
         </div>
         <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" value="Save Report"/>
-    </div>
+          <input type="submit" class="btn btn-primary" value="Save Report"/>
+        </div>
+      </div>
     </div>
 
   </script>
@@ -199,6 +232,15 @@
   <script defer type="text/javascript" src="app/bubble.js"></script>
   <script defer type="text/javascript" src="app/obituaries.js"></script>
   <script defer type="text/javascript" src="app/intro.js"></script>
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
 
 </body>
 </html>

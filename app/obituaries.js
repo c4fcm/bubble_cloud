@@ -59,17 +59,28 @@ var PersonView = Backbone.View.extend({
   events:{
     "click .modal .close": "close_modal",
     "click .wiki_research_action": 'does_wikipedia_include',
-    "click .research_action": "does_publication_include"
+    "click .research_action": "does_publication_include",
+    "click .full_obituary": "share_life_record"
   },
 
   initialize: function(){
     this.person_page_template = _.template($("#person_page_template").html());
     this.does_wikipedia_include_template = _.template($("#does_wikipedia_include").html());
     this.does_publication_include_template = _.template($("#does_publication_include").html());
+    this.share_life_record_template = _.template($("#share_life_record_template").html());
   },
 
   close_modal: function(){
     $(".modal").remove();
+  },
+
+  share_life_record: function(){
+    $(".modal").remove();
+    $(this.el).append(this.share_life_record_template({person:this.current_obituary, current_location:window.location}));
+    $(".modal").fadeIn();
+    FB.XFBML.parse(document.getElementById('#like_person'));
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
   },
 
   does_wikipedia_include: function(){
