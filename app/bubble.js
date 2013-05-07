@@ -15,7 +15,7 @@ Bubbles = function() {
     bottom: 0,
     left: 0
   };
-  maxRadius = 65;
+  maxRadius = 58;
   rScale = d3.scale.sqrt().range([0, maxRadius]);
   rValue = function(d) {
     return parseInt(d.count);
@@ -107,7 +107,7 @@ Bubbles = function() {
 
           // code adapted from http://bl.ocks.org/mbostock/3422480
 
-          k = d.total_male/d.count;
+          k = d.male/d.count;
           var t0, t1 = k * 2 * Math.PI;
           // Solve for theta numerically.
           if (k > 0 && k < 1) {
@@ -142,7 +142,7 @@ Bubbles = function() {
       return textValue(d);
     });
     labelEnter.append("div").attr("class", "bubble-label-value").text(function(d) {
-      return d.total_male + " /  " + d.total_fem;
+      return d.male + " /  " + d.fem;
     });
     label.style("font-size", function(d) {
       return Math.max(8, rScale(rValue(d) / 2)) + "px";

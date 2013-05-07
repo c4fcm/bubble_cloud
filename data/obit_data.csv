@@ -1,50 +1,50 @@
-word,name,count,fem,male,total_fem,total_male
-major,major,6136,27,36,730,5406
-fashion,fashion,1766,26,7,672,1094
-love,love,2884,30,14,827,2057
-family,family,16704,120,90,3241,13463
-dance,dance,9154,127,39,3441,5713
-national,national,14181,77,81,2062,12119
-son,son,28590,130,169,3438,25152
-culture,culture,3009,20,16,559,2450
-taught,taught,6292,40,35,1066,5226
-politics,politics,21764,76,132,2049,19715
-children,children,9466,99,45,2673,6793
-established,established,2874,19,16,516,2358
-law,law,10574,37,64,995,9579
-business,business,34386,117,208,3179,31207
-brother,brother,13646,70,79,1868,11778
-divorce,divorce,3395,41,15,1122,2273
-father,father,9971,55,57,1525,8446
-sports,sports,15298,48,93,1320,13978
-power,power,3506,11,22,299,3207
-religion,religion,9324,47,54,1289,8035
-acting,acting,33200,298,170,7934,25266
-book,book,20186,149,109,4033,16153
-music,music,17843,142,94,3825,14018
-interest,interest,2558,16,14,428,2130
-teaching,teaching,3014,32,15,828,2186
-friend,friend,4179,34,22,921,3258
-literature,literature,50131,379,268,10161,39970
-grandkids,grandkids,17101,88,99,2311,14790
-social,social,4720,42,24,1130,3590
-award,award,4581,36,24,954,3627
-important,important,2928,16,17,444,2484
-military,military,14321,24,91,652,13669
-republican,republican,2405,10,15,258,2147
-visual arts,visual arts,7936,65,42,1719,6217
-sister,sister,12696,101,67,2670,10026
-elected,elected,3283,12,20,313,2970
-career,career,13102,81,73,2190,10912
-science,science,21659,73,132,1968,19691
-wife,wife,29607,33,193,884,28723
-journalism,journalism,3667,24,20,646,3021
-democrat,democrat,3747,16,22,411,3336
-leadership,leadership,70801,276,426,7246,63555
-marriage,marriage,11548,135,53,3683,7865
-mother,mother,6505,78,29,2140,4365
-action,action,5059,35,28,912,4147
-won,won,8618,49,49,1341,7277
-academia,academia,28499,122,169,3228,25271
-husband,husband,5510,182,4,4858,652
-black,black,6077,42,33,1142,4935
+word,name,count,fem,male
+leadership,leadership,22113, 2913,19200
+career,career,9231, 1480,7751
+love,love,1946, 513,1433
+black,black,2510, 460,2050
+visual arts,visual arts,3841, 842,2999
+national,national,8656, 1241,7415
+father,father,6118, 1021,5097
+dance,dance,1829, 575,1254
+journalism,journalism,2262, 393,1869
+fashion,fashion,763, 245,518
+teaching,teaching,2248, 581,1667
+military,military,7972, 351,7621
+action,action,4046, 729,3317
+social,social,2886, 653,2233
+grandchildren,grandchildren,15892, 2099,13793
+science,science,7968, 967,7001
+elected,elected,2404, 239,2165
+interest,interest,2105, 351,1754
+marriage,marriage,7330, 2110,5220
+award,award,3218, 628,2590
+business,business,12607, 1545,11062
+literature,literature,12564, 2335,10229
+important,important,2369, 370,1999
+acting,acting,8082, 1736,6346
+won,won,5292, 841,4451
+husband,husband,3553, 3023,530
+power,power,2136, 219,1917
+republican,republican,1268, 137,1131
+sports,sports,4588, 553,4035
+established,established,2487, 439,2048
+children,children,5668, 1310,4358
+sister,sister,11030, 1902,9128
+mother,mother,4756, 1274,3482
+book,book,8084, 1489,6595
+major,major,4491, 567,3924
+son,son,20364, 2460,17904
+friend,friend,3330, 720,2610
+politics,politics,7769, 948,6821
+wife,wife,22192, 585,21607
+democrat,democrat,1951, 216,1735
+academia,academia,10761, 1434,9327
+law,law,4193, 527,3666
+divorce,divorce,2664, 817,1847
+religion,religion,3959, 651,3308
+culture,culture,1982, 385,1597
+brother,brother,10562, 1577,8985
+taught,taught,5030, 855,4175
+family,family,8842, 1727,7115
+music,music,4754, 1089,3665

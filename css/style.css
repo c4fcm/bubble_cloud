@@ -167,11 +167,35 @@ footer p {
   height:11px;
   border-radius:6px;
   margin:2px;
-  background:#aaa;
+  background:#ccc;
 }
 
 a:hover .block{
+  /*background:#0088cc !important;*/
+  border-radius:8px;
+  margin:0px;
+  border:2px solid #0088cc;
   background:#0088cc;
+}
+
+.obit_entry .block.read,a:hover .block.read{
+  background:#999;
+  border-color:#999;
+}
+
+.obit_entry .block.nytimes_view,a:hover .block.nytimes_view{
+  background:#555;
+  border-color:#555;
+}
+
+.obit_entry .block.wikipedia_needed,a:hover .block.wikipedia_needed{
+  background:#f40;
+  border-color:#f40;
+}
+
+.obit_entry .block.wikipedia_includes,a:hover .block.wikipedia_includes{
+  background:#0c4;
+  border-color:#0c4;
 }
 
 /*
@@ -281,6 +305,11 @@ a:hover .block{
 
 .modal .btn{
   color:white;
+}
+
+.modal a{
+  text-decoration:underline;
+  color:#0088cc;
 }
 
 .research_action img,.wiki_research_action img,.full_obituary img{

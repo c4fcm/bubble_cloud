@@ -45,8 +45,8 @@
           <li><a href="#overview"><i class="icon-chevron-right"></i> Women and Men in the New York Times</a></li>
           <li class="active"><a href="#scrollspy"><i class="icon-chevron-right"></i> Browse A Category</a></li>
           <li><a href="#carousel"><i class="icon-chevron-right"></i> Remember A Life</a></li>
-          <li><a href="#typeahead"><i class="icon-chevron-right"></i> Request An Update</a></li>
-          <li><a href="#affix"><i class="icon-chevron-right"></i> Use Your Voice</a></li>
+          <li><a href="#voice"><i class="icon-chevron-right"></i> Use Your Voice</a></li>
+          <li><a href="#about"><i class="icon-chevron-right"></i> About</a></li>
         </ul>
       </div>
 
@@ -125,7 +125,7 @@
         <h3>Share A Story</h3>
         </div>
         <div class="modal-body">
-          <p>Has the story of <em><%=person.name%></em> inspired you? Share this story on Facebook and Twitter.</p> <p>Maybe this life record inspires you to tell some other story. Why not write a short note online to remember your heroes?</p>
+          <p>Has the story of <em><%=meta_fields.person.name%></em> inspired you? Share this story on Facebook and Twitter.</p> <p>Maybe this life record inspires you to tell some other story. Why not write a short note online to remember your heroes?</p>
           <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://url" data-text="THING THING" data-via="ACCOUNT" data-size="large" data-dnt="true">Tweet</a>
           <br/><br/>
          
@@ -133,7 +133,7 @@
         </div>
 
         <div class="modal-footer">
-          <a class="btn btn-primary close">Close</a>
+          <input type="submit" class="btn btn-primary close" value="Close"></input>
         </div>
       </div>
     </div>
@@ -146,9 +146,12 @@
         <h3><%=title%></h3>
         </div>
         <div class="modal-body">
-          <form name="final_survey" action="/followbias/final_survey" method="post" id="final_survey">
+          <form name="does_wikipedia_include" action="/survey/does_wikipedia_include.json" method="post" id="wikipedia_survey">
           <fieldset>
-            <span class="help-block">Does Wikipedia include <%=person.name%>? Remember, people are sometimes described within a topic rather than a biography. You may have to search again.</span>
+            <input type="hidden" name="authenticity_token" value="<%=meta_fields.authenticity_token%>"/>
+            <input type="hidden" name="obituary_id" value="<%=meta_fields.person.id%>"/>
+            <input type="hidden" name="topic" value="<%=meta_fields.word%>"/>
+            <span class="help-block">Does Wikipedia include <%=meta_fields.person.name%>? Remember, people are sometimes described within a topic rather than a biography. You may have to search again.</span>
             <label class="radio inline">
               <input type="radio" name="includes_person" value="Y"> Yes
             </label>
@@ -156,7 +159,7 @@
               <input type="radio" name="includes_person" value="N"> No
             </label>
             <hr/>
-            <span class="help-block">This one might take a minute: If <em><%=person.name%></em> does not appear in Wikipedia, do you think this person would meet <strong>at least one</strong> of Wikipedia's <strong><a href="https://en.wikipedia.org/wiki/Wikipedia:Article_wizard/Biographical_notability">notable person requirements</a></strong>?</span>
+            <span class="help-block">Does <em><%=meta_fields.person.name%></em> meet <strong>at least one</strong> of Wikipedia's <a target="_new" href="https://en.wikipedia.org/wiki/Wikipedia:Article_wizard/Biographical_notability">notable person requirements</a>?</span>
             <label class="radio inline">
               <input type="radio" name="notable" value="Y"> Yes
             </label>
@@ -165,7 +168,7 @@
             </label>
             
             <hr/>
-            <span class="help-block">If <%=person.name%> does appear in Wikipedia, is the article so thin or weak that it clearly needs more detail or editing?</span>
+            <span class="help-block">If <%=meta_fields.person.name%> does appear in Wikipedia, is the article so thin or weak that it clearly needs more detail or editing?</span>
             <label class="radio inline">
               <input type="radio" name="needs_improvement" value="Y"> Yes 
             </label>
@@ -176,7 +179,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" value="Save Report"/>
+          <input id="submit_form" type="submit" class="btn btn-primary" value="Save Report"/>
         </div>
       </div>
     </div>
@@ -190,9 +193,13 @@
         <h3>Now that you've checked <%=publication%></h3>
         </div>
         <div class="modal-body">
-          <form name="final_survey" action="/followbias/final_survey" method="post" id="final_survey">
+          <form name="publication_survey" action="/survey/does_publication_include.json" method="post" id="publication_survey">
+            <input type="hidden" name="publication" value="<%=publication%>"/>
+            <input type="hidden" name="authenticity_token" value="<%=meta_fields.authenticity_token%>"/>
+            <input type="hidden" name="obituary_id" value="<%=meta_fields.person.id%>"/>
+            <input type="hidden" name="topic" value="<%=meta_fields.word%>"/>
           <fieldset>
-            <span class="help-block">Does <%=publication%> include <%=person.name%>?</span>
+            <span class="help-block">Does <%=publication%> include <%=meta_fields.person.name%>?</span>
             <label class="radio inline">
               <input type="radio" name="includes_person" value="Y"> Yes
             </label>
@@ -208,7 +215,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" value="Save Report"/>
+          <input id="submit_form" type="submit" class="btn btn-primary" value="Save Report"/>
         </div>
       </div>
     </div>

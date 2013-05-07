@@ -15,6 +15,7 @@ Dir.glob(File.join(readdir, "*.json")).each do |filename|
   data = JSON.load(File.open(filename).read())
   if(!data.nil? and !data[0].nil? and data[0].has_key?("date"))
     new_array = data.collect{|r| 
+
       name = r["name"]
       if(name.match(/^[A-Z]*/)[0].size>1)
         name = name.split(",").collect{|a|a.strip}.reverse.join(" ")
@@ -29,14 +30,17 @@ Dir.glob(File.join(readdir, "*.json")).each do |filename|
       id = r["url"].gsub(/.*?res=/,"")
 
       Dir.mkdir(File.join(obitdir, category)) unless File.exists?(File.join(obitdir, category))
-      File.open(File.join(obitdir, category, id + ".json"), "w") do |f|
-        f.write({:name=>name, :date=>r["date"], :id=>id, :url=>r["url"],
-                :sentences=>r["sentences"], :g=>["gender"]}.to_json)
+      if(r["gender"]!="male")
+        File.open(File.join(obitdir, category, id + ".json"), "w") do |f|
+          f.write({:name=>name, :date=>r["date"], :id=>id, :url=>r["url"],
+                  :sentences=>r["sentences"], :g=>r["gender"]}.to_json)
+        end
       end 
 
       {:name=>name, :date=>r["date"], :id=>id, 
        :s=>r["sentences"].size, :g=>r["gender"][0]}
     }
+    new_array = new_array.reject{|r|r[:g] =="m"}
     File.open(File.join(writedir, basename), "w"){|f|f.write(new_array.to_json)}
   end
 end
