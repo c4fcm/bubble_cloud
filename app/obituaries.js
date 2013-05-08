@@ -14,7 +14,6 @@ var ObituaryView = Backbone.View.extend({
   },
 
   render: function(){
-    console.log(1);
   },
 
   hide: function(){
@@ -49,13 +48,15 @@ var ObituaryView = Backbone.View.extend({
     });
   },
 
-  load: function(word){
+  load: function(word, person){
     obj = this;
 
     $("#results_nav a").attr("href", "/#search/" + word);
-    $.scrollTo("#word_selection_heading", 1000);
     $(".bs-docs-sidenav li").removeClass("active");
     $("#results_nav").addClass("active");
+    if(typeof person === "undefined"){
+      $.scrollTo("#word_selection_heading", 1000);
+    }
 
     if(this.word == word){
       return;
@@ -209,20 +210,26 @@ var ObituaryRouter = Backbone.Router.extend({
     "search/:word/:id":"personview",
     "search/:word": "wordview"
   },
+  initialize: function(){
+    this.slideshow = false;
+  },
 
   top: function(){
+    this.check_slideshow();
     $.scrollTo("#vis", 1000);
     $(".bs-docs-sidenav li").removeClass("active");
     $("#vis_nav").addClass("active");
   },
 
   results: function(){
+    this.check_slideshow();
     $.scrollTo("#word_selection_heading", 1000);
     $(".bs-docs-sidenav li").removeClass("active");
     $("#results_nav").addClass("active");
   },
 
   about: function(){
+    this.check_slideshow();
     $(".bs-docs-sidenav li").removeClass("active");
     $("#about_nav").addClass("active");
     $.scrollTo("#about_passing_on", 1000);
@@ -231,22 +238,19 @@ var ObituaryRouter = Backbone.Router.extend({
   index: function(){
     this.current_word = "";
     this.current_person = "";
-    if(this.check_slideshow()){
-      obituary_view.render()
-    }
+    intro_view.render();
+    obituary_view.render();
+    this.slideshow = true;
   },
   
   wordview: function(word, person){
-    //if(typeof person === "undefined"){
-    //  person_view.hide();
-    //}
-    if(this.check_slideshow()){
-      obituary_view.load(word, person);
-      this.current_word = word;
-    }
+    this.check_slideshow();
+    obituary_view.load(word, person);
+    this.current_word = word;
   },
 
   personview: function(word, person){
+    this.check_slideshow();
     this.wordview(word, true);
     this.current_person = person;
     person_view.showperson(person, word);
@@ -255,7 +259,11 @@ var ObituaryRouter = Backbone.Router.extend({
   },
 
   check_slideshow: function(){
-    return true; 
+    if(this.slideshow == false){
+      bubble_view.render();
+    }
+    this.slideshow = true;
+    return this.slideshow;
   }
 });
 

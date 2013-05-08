@@ -13,9 +13,9 @@ var IntroView = Backbone.View.extend({
  
   load_slides: function(){
    // shortcut shim to prevent slides from showing
-   $("#intro").remove();
+   /*$("#intro").remove();
    bubble_view.render();
-    return true;
+    return true;*/
 
     that = this;
     $.getJSON("data/index.json", function(data){
@@ -27,7 +27,6 @@ var IntroView = Backbone.View.extend({
   },
 
   play_slide: function(n){
-    // temporary shim
     _.each(this.timeouts, function(t){
       window.clearInterval(t);
     });
@@ -73,8 +72,8 @@ var IntroView = Backbone.View.extend({
   },
 
   render: function(){
+    $("#intro").show();
   }
 });
 
 intro_view = new IntroView();
-intro_view.render();
