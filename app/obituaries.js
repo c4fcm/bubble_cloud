@@ -8,6 +8,8 @@ var ObituaryView = Backbone.View.extend({
     this.data = [];
     this.obit_name_template = _.template($("#obit_name_template").html())
     this.person_sidebar_template = _.template($("#person_sidebar_template").html())
+    this.word_view_sidebar = _.template($("#word_view_sidebar").html());
+    this.words_intro_template = _.template($("#words_intro_template").html());
     this.prev_tooltip = null;
   },
 
@@ -58,7 +60,15 @@ var ObituaryView = Backbone.View.extend({
       obj.names_by_date = obj.data.dimension(function(d){return new Date(d.date)});
       obj.showNames();
       obj.showCrowdStatus();
-      $("#word_selection_heading").html("women's obituaries that include <em>" + word + "</em> terms")
+      if(obj.terms == null){
+        $.getJSON("data/terms.json", function(terms){
+          obj.terms = terms;
+          $("#word_selection_heading").html(obj.words_intro_template({word:word, terms:terms[word].join(", ")}));
+        });
+      }else{
+        $("#word_selection_heading").html(obj.words_intro_template({word:word, terms:obj.terms[word].join(", ")}));
+      }
+      $("#instructions").html(obj.word_view_sidebar());
     });
   }
 });
@@ -142,6 +152,16 @@ var PersonView = Backbone.View.extend({
 
       $.getJSON("data/obits/" + word + "/" + person + ".json", function(person_record){
         that.current_obituary = person_record;
+        new_sentences = [];
+        _.each(person_record.sentences, function(sentence){
+          var tmp_sentence = sentence;
+          _.each(obituary_view.terms[obituary_view.word], function(term){
+            tmp_sentence = tmp_sentence.replace(term, "<span class='highlight'>" + term + "</span>")
+          });
+          new_sentences.push(tmp_sentence)
+        });
+        that.current_obituary.sentences = new_sentences
+       
         $("#person_view").html(that.person_page_template({person:person_record, word: word}));
         $.getJSON("/survey/read.json?obituary_id=" + person + "&topic=" + word, function(obit_status){
           that.set_obit_status(obit_status);

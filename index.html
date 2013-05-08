@@ -51,7 +51,7 @@
       </div>
 
       <div class="span6">
-         <h4 id="word_selection_heading"></h4>
+         <div id="word_selection_heading"></div>
          <div id="obituaries">
          </div>
 
@@ -63,9 +63,6 @@
     <!-- Content Right Bar -->
       <div class="span3 bs-docs-sidebar">
         <div id="instructions" class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="650">
-        <h3>About This thing</h3>
-        <p>More paragraphs about this part of the process can be included here.</p>
-        <p>That way I can highlight women's stories and content in general, and include commentary where helpful.</p>
         </div>
       </div>
 
@@ -105,15 +102,15 @@
     <% _.each(person.sentences, function(sentence){ %>
       <p><%=sentence%></p>
     <% }); %>
-    <p><a target="_new" class="full_obituary" href="<%=person.url%>"><img src="https://www.nytimes.com/favicon.ico"/>Read the full obituary of <%=person.name%>.</a> </p>
-    <p><a class="wiki_research_action" href="https://en.wikipedia.org/wiki/Special:Search?search=<%=person.name%>&go=Go" target="_new"><img src="http://wikipedia.com/favicon.ico" align="bottom"/>Search Wikipedia for <em><%=person.name%></em></a></p>
+    <p><a target="_new" class="full_obituary" href="<%=person.url%>"><img  width="16" height="16" src="https://www.nytimes.com/favicon.ico"/>Read the full obituary of <%=person.name%>.</a> </p>
+    <p><a class="wiki_research_action" href="https://en.wikipedia.org/wiki/Special:Search?search=<%=person.name%>&go=Go" target="_new"><img  width="16" height="16" src="http://wikipedia.com/favicon.ico" align="bottom"/>Search Wikipedia for <em><%=person.name%></em></a></p>
 
     <h4>Learn more &amp; find other sources for Wikipedia</h4>
     <ul >
-      <li><a class="research_action" data-publication="the New York Times" target="_new" href="http://query.nytimes.com/search/sitesearch/#/<%=person.name.replace(' ','+')%>"><img src="https://www.nytimes.com/favicon.ico"/>Search the New York Times for  <em><%=person.name%></em></a></li>
+      <li><a class="research_action" data-publication="the New York Times" target="_new" href="http://query.nytimes.com/search/sitesearch/#/<%=person.name.replace(' ','+')%>"><img  width="16" height="16" src="https://www.nytimes.com/favicon.ico"/>Search the New York Times for  <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="the Boston Globe" target="_new" href="https://secure.pqarchiver.com/boston/results.html?st=advanced&QryTxt=<%=person.name.replace(' ','+')%>&type=current&sortby=RELEVANCE&datetype=0&frommonth=01&fromday=01&fromyear=1980&tomonth=05&today=03&toyear=2013&By=&Title="><img width="16" height="16" src="http://www.boston.com/favicon.ico"/>Search the Boston Globe for <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="Britannica" target="_new" href="http://www.britannica.com/search?query=<%=encodeURIComponent(person.name)%>"><img width="16" height="16" src="http://www.britannica.com/favicon.ico"/>Search Britanicca for <em><%=person.name%></em></a></li>
-      <li><a class="research_action" data-publication="Google Books" target="new" href="http://google.com/search?q=<%=person.name.replace(' ','+')%>&btnG=Search+Books&tbm=bks&tbo=1"><img src="https://www.google.com/favicon.ico">Search Google Books for <em><%=person.name%></em></li>
+      <li><a class="research_action" data-publication="Google Books" target="new" href="http://google.com/search?q=<%=person.name.replace(' ','+')%>&btnG=Search+Books&tbm=bks&tbo=1"><img  width="16" height="16" src="https://www.google.com/favicon.ico">Search Google Books for <em><%=person.name%></em></li>
     </ul>
     </div>
   </script>
@@ -220,6 +217,27 @@
       </div>
     </div>
 
+  </script>
+
+  <script id="word_view_sidebar" type="text/template">
+    <h4>Browse Life Records</h4>
+    <p>Click a dot to read an excerpt from the life records of women appearing in the New York Times editorial obituaries.</p><p>Colours show collective activity to find and record people who ought to be added to Wikipedia.</p>
+    <ul class="obit_entry">
+    <li><span class="block"></span> life record</li>
+    <li><span class="block read"></span> this entry has been read</li>
+    <li><span class="block nytimes_view"></span> the NYT record has been read</li>
+    <li><span class="block wikipedia_needed"></span> needs Wikipedia entry</li>
+    <li><span class="block wikipedia_includes"></span> found in Wikipedia</li>
+    </ul>
+  </script>
+
+  <script id="person_view_sidebar" type="text/template">
+    <h4>Browse Life Records</h4>
+    <p>Explanatory text here</p>
+  </script>
+
+  <script id="words_intro_template" type="text/template">
+  <p>Search results that for the terms: <em><%=terms%></em>.</p>
   </script>
 
 

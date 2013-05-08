@@ -198,6 +198,18 @@ a:hover .block{
   border-color:#0c4;
 }
 
+ul.obit_entry{
+  list-style:none;
+  margin:0px;
+}
+
+#person_view p .highlight{
+  background: #def;
+  padding-right:1px;
+  padding-left:1px;
+  color:#025;
+}
+
 /*
 .obit_entry .f{
   background:#f77;
