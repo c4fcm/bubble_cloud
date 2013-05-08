@@ -56,6 +56,7 @@ var ObituaryView = Backbone.View.extend({
     $("#results_nav").addClass("active");
     if(typeof person === "undefined"){
       $.scrollTo("#word_selection_heading", 1000);
+      $("#instructions").html(obj.word_view_sidebar());
     }
 
     if(this.word == word){
@@ -262,6 +263,7 @@ var ObituaryRouter = Backbone.Router.extend({
     if(this.slideshow == false){
       bubble_view.render();
     }
+    $("#intro").hide();
     this.slideshow = true;
     return this.slideshow;
   }
