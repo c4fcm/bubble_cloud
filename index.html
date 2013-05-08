@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/hint.min.css"></link>
   <!-- end CSS-->
 
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
@@ -28,13 +29,13 @@
     <div id="intro"></div>
     <header>
     <h4 style="display: inline-block">Gender in New York Times Editorial Obituaries 1987 - 2007</h4>
-    <span id="labels">
-      <span class="block women"></span> Obituaries about women
-      <span class="block men"></span> Obituaries about men
-    </span>
-      <p>Each of these bubbles represents a search query for matching words in the Editorial Obituaries of the New York Times. Click to explore.</p>
+      <p>Each of these bubbles represents a search query in the Editorial Obituaries of the New York Times. Click to explore.</p>
     </header>
     <div id="main" role="main">
+      <div id="labels">
+        <span class="block women"></span> Obituaries about women
+        <span class="block men"></span> Obituaries about men
+      </div>
       <div id="vis"></div>
     </div>
   </div> 
@@ -45,7 +46,7 @@
     <div class="row">
 
       <div class="span3 bs-docs-sidebar">
-        <ul class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="560">
+        <ul class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="525">
           <li id="vis_nav"><a href="#thetop"><i class="icon-chevron-right"></i> Women's Life Records in the New York Times</a></li>
           <li id="results_nav"><a href="#results"><i class="icon-chevron-right"></i> Search Results</a></li>
           <li id="person_nav"><a href="javascript:window.location.url"><i class="icon-chevron-right"></i> Remember A Life</a></li>
@@ -68,6 +69,7 @@
            <p>Although <strong>gender is more complex</strong> than the male/female binary used here, our software isn't able to estimate other genders and sexualities from article content. Gender estimates are based on the gendered pronouns found within the text of articles, similar the approach used by Reagle and Rhue in their paper on <a href="http://ijoc.org/ojs/index.php/ijoc/article/view/777">gender bias in Wikipedia</a>. A wealth of content beyond gender binaries can be found at the <a href="https://en.wikipedia.org/wiki/Portal:LGBT">Wikipedia LGBT portal</a>.</p>
            <p><a href="http://twitter.com/natematias">J. Nathan Matias</a> is a grad student at the MIT Media Lab Center for Civic Media, advised by <a href="https://twitter.com/ethanz">Ethan Zuckerman</a>. Nathan collaborates on technology and communities which empower people to become more <a href="http://hypatia.media.mit.edu:3000/">creative, effective, and informed</a>.</p>
            <p><a href="http://web.mit.edu/sldiehl/www/">Sophie Diehl</a> is an undergraduate at MIT studying electrical engineering, with an interest in data visualizations for social awareness. She started <em>Passing On</em> as a summer project in data visualization supervised, by <a href="https://twitter.com/natematias">J. Nathan Matias</a> at the MIT Media Lab. Her visualization "<a href="http://stuff.mit.edu/~sldiehl/Gender_In_Memoriam/index.html">Gender in Memoriam</a>" is the precursor to this project.</p>
+           <p>Special thanks is due to Jim Vallandingham, whose <a href="http://vallandingham.me/building_a_bubble_cloud.html">bubble cloud tutorial</a> provided the basis for this visualisation.</p>
            <h3>Learn More</h3>
            <h4>Does Wikipedia have a Gender Problem?</h4>
            <p>Wikipedia is an influential mirror on society, a means through which we understand our world. Wikipedia also has gaps that we can all work to fill. How are women faring?</p>
@@ -91,7 +93,7 @@
 
     <!-- Content Right Bar -->
       <div class="span3 bs-docs-sidebar">
-        <div id="instructions" class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="560">
+        <div id="instructions" class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="525">
         </div>
       </div>
 
@@ -116,7 +118,7 @@
   </script>
 
   <!-- Individual Obituary Block-->
-  <script id="obit_name_template" type="text/template"><a class="obit_entry_link" title="<%=name.name%>" href="#search/<%=word%>/<%=name.id%>"><div class="obit_entry" id="obit_<%=name.id%>" data-obit-id="<%=name.id%>"><span class="block <%=name.g%>"></span></div></a></script>
+  <script id="obit_name_template" type="text/template"><a class="obit_entry_link hint--top" data-hint="<%=name.name%>" href="#search/<%=word%>/<%=name.id%>"><div class="obit_entry" id="obit_<%=name.id%>" data-obit-id="<%=name.id%>"><span class="block <%=name.g%>"></span></div></a></script>
 
   <!-- Obituary Sidebar -->
   <script id="person_sidebar_template" type="text/template">
@@ -131,8 +133,10 @@
     <% _.each(person.sentences, function(sentence){ %>
       <p><%=sentence%></p>
     <% }); %>
-    <p><a target="_new" class="full_obituary" href="<%=person.url%>"><img  width="16" height="16" src="https://www.nytimes.com/favicon.ico"/>Read the full obituary of <%=person.name%>.</a> </p>
-    <p><a class="wiki_research_action" href="https://en.wikipedia.org/wiki/Special:Search?search=<%=person.name%>&go=Go" target="_new"><img  width="16" height="16" src="http://wikipedia.com/favicon.ico" align="bottom"/>Search Wikipedia for <em><%=person.name%></em></a></p>
+    <div style="padding-left:10px;">
+			<p><a target="_new" class="full_obituary" href="<%=person.url%>"><img  width="16" height="16" src="https://www.nytimes.com/favicon.ico"/><strong>Read the full obituary</strong> of <%=person.name%></a></p>
+			<p><a class="wiki_research_action" href="https://en.wikipedia.org/wiki/Special:Search?search=<%=person.name%>&go=Go" target="_new"><img  width="16" height="16" src="http://wikipedia.com/favicon.ico" align="bottom"/><strong>Search Wikipedia</strong> for <em><%=person.name%></em></a></p>
+    </div>
 
     <h4>Learn more &amp; find other sources for Wikipedia</h4>
     <ul >
@@ -253,10 +257,10 @@
   </script>
 
   <script id="word_view_sidebar" type="text/template">
-    <h4>Browse Life Records</h4>
-    <p>Click a dot to read an excerpt from the life records of women appearing in the New York Times editorial obituaries.</p><p>Colours show collective activity to find and record people who ought to be added to Wikipedia.</p>
+    <h4>Instructions</h4>
+    <p>Click a dot to read an excerpt from the life records of women appearing in New York Times editorial obituaries.</p><p>Whenever you take an action, you contribute to a collective project to find and record people who ought to be added to Wikipedia.</p>
     <ul class="obit_entry">
-    <li><span class="block"></span> life record</li>
+    <li><span class="block"></span> entry in the New York Times</li>
     <li><span class="block read"></span> this entry has been read</li>
     <li><span class="block nytimes_view"></span> the NYT record has been read</li>
     <li><span class="block wikipedia_needed"></span> needs Wikipedia entry</li>
@@ -265,7 +269,7 @@
   </script>
 
   <script id="person_view_sidebar" type="text/template">
-    <h4>Remember A Life</h4>
+    <h4>Do Something</h4>
     <p>We don't have to rely on the New York Times for women's stories to be heard. On Facebook, Twitter, blogs, and Wikipedia, anyone can donate their voice. You could:</p>
      <ol>
        <li>Share or Tweet these stories</li>
@@ -277,7 +281,7 @@
   </script>
 
   <script id="words_intro_template" type="text/template">
-  <p>Women's life records which match the terms: <em><%=terms%></em>.</p><p>Click to view an excerpt. Fill in the colors to improve Wikipedia's coverage of women.</p>
+  <p>New York Times obituary <strong>search results</strong> for the terms: <em><%=terms%></em>.</p><p><strong>Not all these women are in Wikipedia yet</strong>. Click to view an excerpt. Fill in the colors to improve Wikipedia's coverage of women.</p>
   </script>
 
 

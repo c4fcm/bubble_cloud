@@ -98,7 +98,10 @@ header {
 }
 
 #labels{
-  margin-left:20px;
+  margin-right:20px;
+  margin-bottom:-65px;
+  text-align:right;
+  z-index:1000;
 }
 
 #labels .women{
@@ -190,8 +193,7 @@ a:hover .block{
   /*background:#0088cc !important;*/
   border-radius:8px;
   margin:0px;
-  border:2px solid #0088cc;
-  background:#0088cc;
+  border:2px solid #ccc;
 }
 
 .obit_entry .block.read,a:hover .block.read{
@@ -220,10 +222,11 @@ ul.obit_entry{
 }
 
 #person_view p .highlight{
-  background: #def;
-  padding-right:1px;
-  padding-left:1px;
-  color:#025;
+  background: #cef;
+  padding-right:2px;
+  padding-left:2px;
+  border-radius:2px;
+  color:#046;
 }
 
 /*
