@@ -90,7 +90,7 @@ Bubbles = function() {
     node.exit().remove();
 
     newnode = node.enter().append("a").attr("class", "bubble-node").attr("xlink:href", function(d) {
-      return "#" + (encodeURIComponent(idValue(d)));
+      return "#search/" + (encodeURIComponent(idValue(d)));
     }).call(force.drag).call(connectEvents)
 
     newnode.append("circle").attr("r", function(d) {
@@ -136,7 +136,7 @@ Bubbles = function() {
     });
     label.exit().remove();
     labelEnter = label.enter().append("a").attr("class", "bubble-label").attr("href", function(d) {
-      return "#" + (encodeURIComponent(idValue(d)));
+      return "#search/" + (encodeURIComponent(idValue(d)));
     }).call(force.drag).call(connectEvents);
     labelEnter.append("div").attr("class", "bubble-label-name").text(function(d) {
       return textValue(d);
@@ -203,7 +203,7 @@ Bubbles = function() {
     return location.replace("#");
   };
   click = function(d) {
-    location.replace("#" + encodeURIComponent(idValue(d)));
+    location.replace("#search/" + encodeURIComponent(idValue(d)));
     return d3.event.preventDefault();
   };
   hashchange = function() {

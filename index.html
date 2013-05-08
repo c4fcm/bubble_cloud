@@ -27,11 +27,10 @@
   <div id="container" class="container">
     <div id="intro"></div>
     <header>
-    <h1>New York Times Life Records 1987 - 2007</h1>
+    <h4>Gender in New York Times Life Records 1987 - 2007</h4>
     </header>
     <div id="main" role="main">
       <div id="vis"></div>
-      <div id="status"></div>
     </div>
   </div> 
 <!--! end of #container -->
@@ -42,21 +41,27 @@
 
       <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="650">
-          <li><a href="#overview"><i class="icon-chevron-right"></i> Women and Men in the New York Times</a></li>
-          <li class="active"><a href="#scrollspy"><i class="icon-chevron-right"></i> Browse A Category</a></li>
-          <li><a href="#carousel"><i class="icon-chevron-right"></i> Remember A Life</a></li>
-          <li><a href="#voice"><i class="icon-chevron-right"></i> Use Your Voice</a></li>
-          <li><a href="#about"><i class="icon-chevron-right"></i> About</a></li>
+          <li id="vis_nav"><a href="#thetop"><i class="icon-chevron-right"></i> Women's Life Records in the New York Times</a></li>
+          <li id="results_nav"><a href="#results"><i class="icon-chevron-right"></i> Search Results</a></li>
+          <li id="person_nav"><a href="javascript:window.location.url"><i class="icon-chevron-right"></i> Remember A Life</a></li>
+          <li id="about_nav"><a href="#about"><i class="icon-chevron-right"></i> About</a></li>
         </ul>
       </div>
-
       <div class="span6">
          <div id="word_selection_heading"></div>
          <div id="obituaries">
          </div>
-
+         <hr/>
          <h2 id="person_view_heading"></h2>
          <div id="person_view">
+         </div>
+         <hr/>
+         <h3>About "Passing On"</h3>
+         <div id="about_passing_on">
+           <p> 
+           </p>
+           <p><a href="http://web.mit.edu/sldiehl/www/">Sophie Diehl</a> started "Passing On" as a summer project in data visualization supervised by <a href="https://twitter.com/natematias">J. Nathan Matias</a> at the MIT Media Lab in 2012. measuring and changing gender diversity in the media.</p>
+           <p>J. Nathan Matias is a grad student at the MIT Media Lab Center for Civic Media, advised by <a href="https://twitter.com/ethanz">Ethan Zuckerman</a>. Nathan collaborates on technology and communities which empower people to become more <a href="http://hypatia.media.mit.edu:3000/">creative, effective, and informed</a>.</p>
          </div>
       </div>
 
@@ -87,7 +92,7 @@
   </script>
 
   <!-- Individual Obituary Block-->
-  <script id="obit_name_template" type="text/template"><a class="obit_entry_link" title="<%=name.name%>" href="#<%=word%>/<%=name.id%>"><div class="obit_entry" id="obit_<%=name.id%>" data-obit-id="<%=name.id%>"><span class="block <%=name.g%>"></span></div></a></script>
+  <script id="obit_name_template" type="text/template"><a class="obit_entry_link" title="<%=name.name%>" href="#search/<%=word%>/<%=name.id%>"><div class="obit_entry" id="obit_<%=name.id%>" data-obit-id="<%=name.id%>"><span class="block <%=name.g%>"></span></div></a></script>
 
   <!-- Obituary Sidebar -->
   <script id="person_sidebar_template" type="text/template">
@@ -98,7 +103,7 @@
 
   <!-- Obituary Area -->
   <script id="person_page_template" type="text/template">
-    <h3 id="person_entry"><%=person.name%>, <%=person.date%></h3>
+    <h3 id="person_entry"><%=person.name%></h3><h5><%=person.date%></h5>
     <% _.each(person.sentences, function(sentence){ %>
       <p><%=sentence%></p>
     <% }); %>
@@ -108,7 +113,11 @@
     <h4>Learn more &amp; find other sources for Wikipedia</h4>
     <ul >
       <li><a class="research_action" data-publication="the New York Times" target="_new" href="http://query.nytimes.com/search/sitesearch/#/<%=person.name.replace(' ','+')%>"><img  width="16" height="16" src="https://www.nytimes.com/favicon.ico"/>Search the New York Times for  <em><%=person.name%></em></a></li>
+      <li><a class="research_action" data-publication="The LA Times" target="_new" href="http://pqasb.pqarchiver.com/latimes/results.html?st=advanced&QryTxt=<%=encodeURIComponent(person.name)%>&x=14&y=18&type=current&sortby=RELEVANCE&datetype=0&frommonth=01&fromday=01&fromyear=1985&tomonth=05&today=08&toyear=2013&By=&Title=&at_curr=ALL&Sect=ALL"><img width="16" height="16" src="http://www.latimes.com/favicon.ico"/>Search the LA Times for <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="the Boston Globe" target="_new" href="https://secure.pqarchiver.com/boston/results.html?st=advanced&QryTxt=<%=person.name.replace(' ','+')%>&type=current&sortby=RELEVANCE&datetype=0&frommonth=01&fromday=01&fromyear=1980&tomonth=05&today=03&toyear=2013&By=&Title="><img width="16" height="16" src="http://www.boston.com/favicon.ico"/>Search the Boston Globe for <em><%=person.name%></em></a></li>
+      <li><a class="research_action" data-publication="Harpers" target="_new" href="http://harpers.org/?s=<%=encodeURIComponent(person.name)%>&yearFrom=01%2F1800&yearTo=05%2F2013&spost_type=Entire+site&sfield=All+Fields&sorder=Relevance"><img width="16" height="16" src="/img/newspaper.ico"/>Search Harper's for <em><%=person.name%></em></a></li>
+      <li><a class="research_action" data-publication="Time Magazine" target="_new" href="http://search.time.com/results.html?Ntt=<%=encodeURIComponent(person.name)%>&N=0&Nty=1&p=0&cmd=tags"><img width="16" height="16" src="http://www.time.com/time/favicon.ico"/>Search Time Magazine for <em><%=person.name%></em></a></li>
+      <li><a class="research_action" data-publication="The Atlantic" target="_new" href="http://www.theatlantic.com/search/?sort=time&source=search&q=<%=encodeURIComponent(person.name)%>"><img width="16" height="16" src="http://www.theatlantic.com/favicon.ico"/>Search The Atlantic for <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="Britannica" target="_new" href="http://www.britannica.com/search?query=<%=encodeURIComponent(person.name)%>"><img width="16" height="16" src="http://www.britannica.com/favicon.ico"/>Search Britanicca for <em><%=person.name%></em></a></li>
       <li><a class="research_action" data-publication="Google Books" target="new" href="http://google.com/search?q=<%=person.name.replace(' ','+')%>&btnG=Search+Books&tbm=bks&tbo=1"><img  width="16" height="16" src="https://www.google.com/favicon.ico">Search Google Books for <em><%=person.name%></em></li>
     </ul>
@@ -232,12 +241,19 @@
   </script>
 
   <script id="person_view_sidebar" type="text/template">
-    <h4>Browse Life Records</h4>
-    <p>Explanatory text here</p>
+    <h4>Remember A Life</h4>
+    <p>We don't have to rely on the New York Times for women's stories to be heard. On Facebook, Twitter, blogs, and Wikipedia, anyone can donate their voice. You could:</p>
+     <ol>
+       <li>Share or Tweet these stories</li>
+       <li>Search Wikipedia to learn more and find missing biographies</li>
+       <li>Search for <a target="_new" href="https://en.wikipedia.org/wiki/Wikipedia:Article_wizard/Sources">sources</a> to help this person meet Wikipedia's <a target="_new" href="https://en.wikipedia.org/wiki/Wikipedia:Article_wizard/Biographical_notability">notability requirements</a>.</li>
+       <li><a href="https://en.wikipedia.org/wiki/Wikipedia:Requested_articles">Request Wikipedia articles</a> for notable women</li>
+       <li><a href="https://en.wikipedia.org/wiki/Wikipedia:Article_wizard/Introduction">Create a new Wikipedia article</a> for this person</li>
+     </ol>
   </script>
 
   <script id="words_intro_template" type="text/template">
-  <p>Search results that for the terms: <em><%=terms%></em>.</p>
+  <p>Women's life records which match the terms: <em><%=terms%></em>.</p>
   </script>
 
 

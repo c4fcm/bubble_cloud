@@ -23,6 +23,9 @@ var ObituaryView = Backbone.View.extend({
 
   show: function(){
     $(this.el).show();
+    $(".bs-docs-sidenav li").removeClass("active");
+    $("#results_nav").addClass("active");
+    $("#instructions").html(obj.word_view_sidebar());
   },
 
   showNames: function(){
@@ -48,9 +51,16 @@ var ObituaryView = Backbone.View.extend({
 
   load: function(word){
     obj = this;
+
+    $("#results_nav a").attr("href", "/#search/" + word);
+    $.scrollTo("#word_selection_heading", 1000);
+    $(".bs-docs-sidenav li").removeClass("active");
+    $("#results_nav").addClass("active");
+
     if(this.word == word){
-      return 
+      return;
     }
+
     this.word = word;
     this.show();
     $.getJSON("data/obit_json/" + word + ".json", function(data){
@@ -68,7 +78,7 @@ var ObituaryView = Backbone.View.extend({
       }else{
         $("#word_selection_heading").html(obj.words_intro_template({word:word, terms:obj.terms[word].join(", ")}));
       }
-      $("#instructions").html(obj.word_view_sidebar());
+      $.scrollTo("#word_selection_heading", 1000)
     });
   }
 });
@@ -88,7 +98,9 @@ var PersonView = Backbone.View.extend({
     this.does_wikipedia_include_template = _.template($("#does_wikipedia_include").html());
     this.does_publication_include_template = _.template($("#does_publication_include").html());
     this.share_life_record_template = _.template($("#share_life_record_template").html());
+    this.person_view_sidebar = _.template($("#person_view_sidebar").html());
     this.authenticity_token = null;
+    this.current_obituary = null;
   },
 
   close_modal: function(){
@@ -104,6 +116,15 @@ var PersonView = Backbone.View.extend({
         that.close_modal();
       }
     )
+  },
+
+  hide: function(){
+    this.current_obituary = null;
+    $(this.el).hide();
+  },
+
+  show: function(){
+    $(this.el).show();
   },
 
   share_life_record: function(){
@@ -145,9 +166,15 @@ var PersonView = Backbone.View.extend({
   },
 
   showperson: function(person, word){
+    if(this.current_obituary!= null && this.current_obituary.id == person){
+      $("#instructions").html(this.person_view_sidebar());
+      $.scrollTo("#person_entry", 1000);
+      return;
+    }
     $(this.el).html("");
     var that = this;
-   $.getJSON("/survey/get_token.json", function(response){
+    $("#person_nav a").attr("href", "/#search/" + word + "/" + person);
+    $.getJSON("/survey/get_token.json", function(response){
       that.authenticity_token = response.authenticity_token;
 
       $.getJSON("data/obits/" + word + "/" + person + ".json", function(person_record){
@@ -163,10 +190,12 @@ var PersonView = Backbone.View.extend({
         that.current_obituary.sentences = new_sentences
        
         $("#person_view").html(that.person_page_template({person:person_record, word: word}));
+        that.show();
         $.getJSON("/survey/read.json?obituary_id=" + person + "&topic=" + word, function(obit_status){
           that.set_obit_status(obit_status);
         });
-        $.scrollTo("#person_entry")
+        $("#instructions").html(that.person_view_sidebar());
+        $.scrollTo("#person_entry", 1000)
       });
     });
   }
@@ -175,8 +204,28 @@ var PersonView = Backbone.View.extend({
 var ObituaryRouter = Backbone.Router.extend({
   routes:{
     "": "index",
-    ":word/:id":"personview",
-    ":word": "wordview"
+    "thetop": "top",
+    "about": "about",
+    "search/:word/:id":"personview",
+    "search/:word": "wordview"
+  },
+
+  top: function(){
+    $.scrollTo("#vis", 1000);
+    $(".bs-docs-sidenav li").removeClass("active");
+    $("#vis_nav").addClass("active");
+  },
+
+  results: function(){
+    $.scrollTo("#word_selection_heading", 1000);
+    $(".bs-docs-sidenav li").removeClass("active");
+    $("#results_nav").addClass("active");
+  },
+
+  about: function(){
+    $(".bs-docs-sidenav li").removeClass("active");
+    $("#about_nav").addClass("active");
+    $.scrollTo("#about_passing_on", 1000);
   },
 
   index: function(){
@@ -187,17 +236,22 @@ var ObituaryRouter = Backbone.Router.extend({
     }
   },
   
-  wordview: function(word){
+  wordview: function(word, person){
+    //if(typeof person === "undefined"){
+    //  person_view.hide();
+    //}
     if(this.check_slideshow()){
-      obituary_view.load(word);
+      obituary_view.load(word, person);
       this.current_word = word;
     }
   },
 
   personview: function(word, person){
+    this.wordview(word, true);
     this.current_person = person;
     person_view.showperson(person, word);
-    this.wordview(word);
+    $(".bs-docs-sidenav li").removeClass("active");
+    $("#person_nav").addClass("active");
   },
 
   check_slideshow: function(){

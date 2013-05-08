@@ -96,8 +96,16 @@ header {
   fill: #f99;
 }
 
+#labels .men{
+  background:#f99;
+}
+
 .bubble-node .mask{
   fill:#6af;
+}
+
+#labels .women{
+  background:#6af;
 }
 
 .bubble-hover {
@@ -313,6 +321,10 @@ ul.obit_entry{
 
 #instructions{
   padding:10px;
+}
+
+#instructions a{
+  color:#0088cc;
 }
 
 .modal .btn{
