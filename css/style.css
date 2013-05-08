@@ -38,7 +38,7 @@ header {
 
 #intro .content{
   position:absolute;
-  top:30%;
+  top:25%;
   left:50%;
   height:200px;
   width: 401px;
@@ -94,7 +94,7 @@ header {
 
 .bubble-node {
   /* fill: #d1e0f3; */
-  fill: #f99;
+  fill: rgb(255,205,0);
 }
 
 #labels{
@@ -102,24 +102,24 @@ header {
 }
 
 #labels .women{
-  background:#f99;
+  background:rgb(255,205,0);
 }
 
 .bubble-node .mask{
-  fill:#6af;
+  fill:rgb(0,168,230);
 }
 
 #labels .men{
-  background:#6af;
+  background:rgb(0,168,230);
 }
 
 .bubble-hover {
   /* fill: #b8c7d9; */
-  fill: #fcc;
+  fill: rgb(235,255,60);
 }
 
 .bubble-hover .mask{
-  fill: #9cf;
+  fill: rgb(50,198,250);
 }
 
 .bubble-selected {
